@@ -18,10 +18,10 @@ def create_user(usuario: Usuario):
     _password = usuario.password
     return Users.create_user(_login, _password)
 
-@security_router.post("security/update_user")
-def update_user(usuario: UsuarioCadastro, token: Session):
+@security_router.post("/security/update_user")
+def update_user(usuario: UsuarioCadastro, token: Token):
     _login = usuario.login
     nickname = usuario.nickname
     level = usuario.level
     _token = token.token
-    return Registration.update(_login, nickname, level, token)
+    return Registration.update(_login, nickname, level, _token)

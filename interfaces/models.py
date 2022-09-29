@@ -5,15 +5,14 @@ class Usuario(BaseModel):
     password: str
 
 class UsuarioCadastro(BaseModel):
-    levels = {
-        0: "ScriptKiddie",
-        1: "Member",
-        2: "Admin"
-    }
-
     login: str
     nickname: str
-    level: levels
+    level = {
+        0: "ScriptKiddie",
+        1: "Member",
+        2: "Admin",
+        3: "Padawan"
+    }
 
-class Session(BaseModel):
+class Token(BaseModel):
     token: str

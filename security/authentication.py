@@ -3,6 +3,7 @@ from security.sessions import *
 
 
 class Auth():
+    '''Classe responsável pela validação de acessos e controle de sessões'''
 
     def authenticate_user(login: str, password: str):
         return Users.login(login, password)

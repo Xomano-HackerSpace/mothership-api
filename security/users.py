@@ -1,6 +1,5 @@
 import hashlib
-from security.sessions import sessions
-from typing import Type
+from security.sessions import *
 
 all_users = {}
 
@@ -15,7 +14,7 @@ class Users():
                 if login not in all_users: #We check if all_users is initiated and confirm that there's no an alredy created user.
                     self._login = login
                     self._password = hashlib.sha256(password.encode(encoding = 'UTF-8')).hexdigest()
-                    self.status = None
+                    self.status = 0
                     self.blocked = False
                     all_users[login] = self #Guarda um objeto do usuário na variavel global
                 else:
@@ -46,7 +45,7 @@ class Users():
         if login not in all_users:
             return 'Login ou senha incorretos!'
         _user = all_users[login]
-        _user: Type[Users] #typing hint
+        _user: Users #typing hint
         if hashlib.sha256(password.encode(encoding = 'UTF-8')).hexdigest() != _user._password:
             return 'Login ou senha incorretos!'
         else:
@@ -66,10 +65,10 @@ class Users():
             case 1: #Abrir sessão
                 if self.blocked == True:
                     raise AttributeError('Usuário está bloqueado! Favor verificar')
-                if self._login in sessions.pool_sessions:
-                    self.session = sessions.pool_sessions[self._login]
+                if self._login in pool_sessions:
+                    self.session = pool_sessions[self._login]
                 else: 
-                    self.session = sessions.Session(self) #abre a sessão
+                    self.session = Session(self) #abre a sessão
                 self.status = status
                 self.session.start_session()
                 return {'message': 'Usuário Autenticado!', 'token': self.session.token}

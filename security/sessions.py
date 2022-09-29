@@ -1,4 +1,3 @@
-from typing import Type
 from security.users import *
 import secrets
 
@@ -10,7 +9,7 @@ class Session():
 
     def __init__(self, _user) -> None:
         self.user = _user
-        self.user: Type[Users]
+        self.user: Users
 
     def start_session(self):
         self._id_user = self.user._login
