@@ -67,19 +67,20 @@ class Users():
 
 
     def change_status(self, status: int):
-        match status:
-            case 0: #Fechar sessão
-                self.status = status
-                self.session.kill_session()
-                return {'message': 'Usuário Desautenticado!'}
+        #match status:
+        #    case 0: #Fechar sessão
+        #        self.status = status
+        #        self.session.kill_session()
+        #        return {'message': 'Usuário Desautenticado!'}
 
-            case 1: #Abrir sessão
-                if self.blocked == 1:
-                    raise AttributeError('Usuário está bloqueado! Favor verificar')
-                if self._login in pool_sessions:
-                    self.session = pool_sessions[self._login]
-                else: 
-                    self.session = Session(self) #abre a sessão
-                self.status = status
-                self.session.start_session()
-                return {'message': 'Usuário Autenticado!', 'token': self.session.token}
+        #    case 1: #Abrir sessão
+        #        if self.blocked == 1:
+        #            raise AttributeError('Usuário está bloqueado! Favor verificar')
+        #        if self._login in pool_sessions:
+        #            self.session = pool_sessions[self._login]
+        #        else: 
+        #            self.session = Session(self) #abre a sessão
+        #        self.status = status
+        #        self.session.start_session()
+        #        return {'message': 'Usuário Autenticado!', 'token': self.session.token}
+        pass
