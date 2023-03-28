@@ -12,5 +12,8 @@ class Members:
 
 
     def create_member(self, membro: MembroInscricao):
-        self.db.create_member(membro.nome, membro.sobrenome, membro.email, membro.discord, membro.github)
-        return 
+        return self.db.create_member(membro.nome, membro.sobrenome, membro.email, membro.discord, membro.github)
+         
+
+    def list_members(self):
+        return self.db.list_members()

@@ -34,3 +34,7 @@ class DbHelper:
     def create_member(self, _nome, _sobrenome, _email, _discord, _github):
         query = f"INSERT INTO MEMBROS (id, nome, sobrenome, email, discord, github) VALUES ( ? ,'{_nome}', '{_sobrenome}', '{_email}', '{_discord}', '{_github}')"
         return self.dbconn.insert(query, (None, ))
+    
+    def list_members(self):
+        query = f"SELECT * FROM MEMBROS"
+        return self.dbconn.select(query)

@@ -10,3 +10,5 @@ members_creator = Members()
 def Create_Member(membro: MembroInscricao):
     return members_creator.create_member(membro)
 
+def List_Members():
+    return members_creator.list_members()
