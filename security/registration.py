@@ -11,3 +11,4 @@ class Registration:
 
         ##Alterar cadastro no banco....
         
+    

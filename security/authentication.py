@@ -15,7 +15,7 @@ class Auth():
         return Session.validate_token(token)
         
 
-Users.create_user('gabriel', '123')
+#Users.create_user('gabriel', '123')
 
 #userobj = Auth.authenticate_user('gabriel', '123')
 #userobj.block_user()

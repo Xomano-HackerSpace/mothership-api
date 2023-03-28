@@ -23,10 +23,14 @@ class DbHelper:
         return usuarios
 
     
-    def get_member(self, login: str):
+    def get_user(self, login: str):
         query = f"SELECT * FROM USUARIOS WHERE LOGIN = '{login}'"
         return self.dbconn.select(query)
 
     def create_user(self, _login: str, _status: int, _blocked: int, _password: str):
         query = f'INSERT INTO USUARIOS (id, login, status, blocked, password) VALUES( ? ,{_login}, {_status}, {_blocked}, {_password})'
+        return self.dbconn.insert(query, (None, ))
+
+    def create_member(self, _nome, _sobrenome, _email, _discord, _github):
+        query = f"INSERT INTO MEMBROS (id, nome, sobrenome, email, discord, github) VALUES ( ? ,'{_nome}', '{_sobrenome}', '{_email}', '{_discord}', '{_github}')"
         return self.dbconn.insert(query, (None, ))

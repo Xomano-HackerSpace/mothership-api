@@ -9,11 +9,10 @@ class Users():
     def __init__(self, login: str= None, password: str= None) -> None:
         #aqui foi feito um tratamento de exceptions por conta do init não poder retornar nada..
         #mas o ideal é que todo o código passe a lidar com exceções em erros e não returns.
-        #if a parameter is passed, we assume that is needed to create an user.
         self.db = DbHelper()
         try:
             if login and password:
-                if login not in all_users: #We check if all_users is initiated and confirm that there's no an alredy created user.
+                if login not in all_users: #Verificamos se o usuário ja existe
                     self._login = login
                     self._password = hashlib.sha256(password.encode(encoding = 'UTF-8')).hexdigest()
                     self.status = 0
