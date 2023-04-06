@@ -5,7 +5,7 @@ from models.membro import *
 member_router = APIRouter()
     
 @member_router.post("/member")
-def Create_Member(membro: MembroInscricao, token):
+def Create_Member(membro: MembroInscricao):
     new_member = Members(membro)
     return new_member.create_member()
 
