@@ -7,8 +7,8 @@ class SQLite:
     def __init__(self, db_file):
         try:
             self.sqliteConnection = sqlite3.connect(db_file, check_same_thread=False)
-            print(self.sqliteConnection)
-            print(f"Successfully Connected to SQLite: {db_file}")
+            #print(self.sqliteConnection)
+            #print(f"Successfully Connected to SQLite: {db_file}")
 
         except sqlite3.Error as error:
             print(f"Failed to connect to SQLite SQLite: {error}")
@@ -21,8 +21,6 @@ class SQLite:
         except Exception as e:
             cursor.close()
             raise e
-        else:
-            cursor.close()
 
     def close(self) -> None:
         if isinstance(self.sqliteConnection, sqlite3.Connection):

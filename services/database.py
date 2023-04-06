@@ -1,4 +1,5 @@
-from database.sqlite import SQLite
+from services.sqlite import SQLite
+from models.membro import *
 
 class DbHelper:
 
@@ -7,7 +8,7 @@ class DbHelper:
         self.db_file = 'database/db_hackerspace.sqlite'
         self.dbconn = SQLite(self.db_file)
 
-    def get_all_members(self):
+    def get_all_users(self):
         query = "SELECT * FROM USUARIOS"
         rows = self.dbconn.select(query)
         usuarios = []
@@ -28,13 +29,13 @@ class DbHelper:
         return self.dbconn.select(query)
 
     def create_user(self, _login: str, _status: int, _blocked: int, _password: str):
-        query = f'INSERT INTO USUARIOS (id, login, status, blocked, password) VALUES( ? ,{_login}, {_status}, {_blocked}, {_password})'
+        query = f"INSERT INTO USUARIOS (id, login, status, blocked, password) VALUES( ? ,'{_login}', '{_status}', '{_blocked}', '{_password}')"
         return self.dbconn.insert(query, (None, ))
 
-    def create_member(self, _nome, _sobrenome, _email, _discord, _github):
-        query = f"INSERT INTO MEMBROS (id, nome, sobrenome, email, discord, github) VALUES ( ? ,'{_nome}', '{_sobrenome}', '{_email}', '{_discord}', '{_github}')"
+    def create_member(self, membro: MembroInscricao):
+        query = f"INSERT INTO MEMBROS (id, nome, sobrenome, email, discord, github) VALUES ( ? ,'{membro.nome}', '{membro.sobrenome}', '{membro.email}', '{membro.discord}', '{membro.github}')"
         return self.dbconn.insert(query, (None, ))
     
-    def list_members(self):
+    def get_all_members(self):
         query = f"SELECT * FROM MEMBROS"
         return self.dbconn.select(query)

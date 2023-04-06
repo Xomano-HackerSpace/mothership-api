@@ -1,4 +1,4 @@
-from security.sessions import Session
+from repository.sessions import *
 
 class Registration:
     '''Classe que implementa as modificações nos cadastros dos membros'''

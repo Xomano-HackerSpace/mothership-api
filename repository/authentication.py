@@ -1,5 +1,5 @@
-from security.users import *
-from security.sessions import *
+from repository.users import *
+from repository.sessions import *
 
 
 class Auth():

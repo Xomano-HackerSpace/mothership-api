@@ -1,15 +1,16 @@
-from security.sessions import *
-from database.database import DbHelper
+from repository.sessions import *
+from services.database import DbHelper
 import hashlib
 
 all_users = {} #Implementar observer pra guardar no banco de dados.
+
+db_helper = DbHelper()
 
 class Users():
 
     def __init__(self, login: str= None, password: str= None) -> None:
         #aqui foi feito um tratamento de exceptions por conta do init não poder retornar nada..
         #mas o ideal é que todo o código passe a lidar com exceções em erros e não returns.
-        self.db = DbHelper()
         try:
             if login and password:
                 if login not in all_users: #Verificamos se o usuário ja existe
@@ -17,14 +18,14 @@ class Users():
                     self._password = hashlib.sha256(password.encode(encoding = 'UTF-8')).hexdigest()
                     self.status = 0
                     self.blocked = 0
-                    self.db.create_user(self._login, self.status, self.blocked, self._password)
+                    db_helper.create_user(self._login, self.status, self.blocked, self._password)
                     all_users[login] = self #Guarda um objeto do usuário na variavel global
 
                 else:
-                    self.error = 'Esse usuário já existe!'
-                    raise AttributeError(self.error)
+                    self.erro = 'Esse usuário já existe!'
+                    raise AttributeError(self.erro)
             else:
-                usuarios = self.db.get_all_members()
+                usuarios = db_helper.get_all_users()
                 for user in usuarios:
                     self._login = user['login']
                     self._password = user['password']
@@ -67,20 +68,19 @@ class Users():
 
 
     def change_status(self, status: int):
-        #match status:
-        #    case 0: #Fechar sessão
-        #        self.status = status
-        #        self.session.kill_session()
-        #        return {'message': 'Usuário Desautenticado!'}
-
-        #    case 1: #Abrir sessão
-        #        if self.blocked == 1:
-        #            raise AttributeError('Usuário está bloqueado! Favor verificar')
-        #        if self._login in pool_sessions:
-        #            self.session = pool_sessions[self._login]
-        #        else: 
-        #            self.session = Session(self) #abre a sessão
-        #        self.status = status
-        #        self.session.start_session()
-        #        return {'message': 'Usuário Autenticado!', 'token': self.session.token}
+        match status:
+            case 0: #Fechar sessão
+                self.status = status
+                self.session.kill_session()
+                return {'message': 'Usuário Desautenticado!'}
+            case 1: #Abrir sessão
+                if self.blocked == 1:
+                    raise AttributeError('Usuário está bloqueado! Favor verificar')
+                if self._login in pool_sessions:
+                    self.session = pool_sessions[self._login]
+                else: 
+                    self.session = Session(self) #abre a sessão
+                self.status = status
+                self.session.start_session()
+                return {'message': 'Usuário Autenticado!', 'token': self.session.token}
         pass

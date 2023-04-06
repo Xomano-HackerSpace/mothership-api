@@ -1,8 +1,8 @@
-from security.authentication import Auth
-from security.registration import Registration
+from repository.authentication import Auth
+from repository.registration import Registration
 from fastapi import APIRouter
-from interfaces.models import *
-from security.users import *
+from repository.users import *
+from models.usuario import *
 
 security_router = APIRouter()
     
